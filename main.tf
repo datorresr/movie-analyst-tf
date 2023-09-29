@@ -169,3 +169,110 @@ resource "aws_route_table_association" "RTA_PriBE2" {
 }
 
 
+
+
+resource "aws_security_group" "SG_BASTION" {
+
+  name = "SG_BASTION"
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["190.26.136.95/32"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["181.57.222.62/32"]
+  }
+
+}
+resource "aws_security_group" "SG_LB_EXT_FE" {
+
+  name = "SG_LB_EXT_FE"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+}
+resource "aws_security_group" "SG_FE_EC2" {
+
+  name = "SG_FE_EC2"
+
+  ingress {
+    from_port   = 3030
+    to_port     = 3030
+    protocol    = "tcp"
+    security_groups  = [aws_security_group.SG_LB_EXT_FE.id]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    security_groups  = [aws_security_group.SG_BASTION.id]
+  }
+
+}
+
+resource "aws_security_group" "SG_LB_INT_BE" {
+
+  name = "SG_LB_INT_BE"
+
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    security_groups  = [aws_security_group.SG_FE_EC2.id]
+  }
+
+}
+
+
+resource "aws_security_group" "SG_BE_EC2" {
+
+  name = "SG_BE_EC2"
+
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    security_groups  = [aws_security_group.SG_LB_INT_BE.id]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    security_groups  = [aws_security_group.SG_BASTION.id]
+  }
+
+}
+
+resource "aws_security_group" "SG_RDS" {
+
+  name = "SG_RDS"
+
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    security_groups  = [aws_security_group.SG_BASTION.id, aws_security_group.SG_BE_EC2.id]
+  }
+
+}
+
