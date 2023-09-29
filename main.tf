@@ -174,6 +174,7 @@ resource "aws_route_table_association" "RTA_PriBE2" {
 resource "aws_security_group" "SG_BASTION" {
 
   name = "SG_BASTION"
+  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
 
   ingress {
     from_port   = 8080
@@ -200,6 +201,7 @@ resource "aws_security_group" "SG_BASTION" {
 resource "aws_security_group" "SG_LB_EXT_FE" {
 
   name = "SG_LB_EXT_FE"
+  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
 
   ingress {
     from_port   = 80
@@ -212,6 +214,7 @@ resource "aws_security_group" "SG_LB_EXT_FE" {
 resource "aws_security_group" "SG_FE_EC2" {
 
   name = "SG_FE_EC2"
+  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
 
   ingress {
     from_port   = 3030
@@ -232,6 +235,7 @@ resource "aws_security_group" "SG_FE_EC2" {
 resource "aws_security_group" "SG_LB_INT_BE" {
 
   name = "SG_LB_INT_BE"
+  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
 
   ingress {
     from_port   = 3000
@@ -246,6 +250,7 @@ resource "aws_security_group" "SG_LB_INT_BE" {
 resource "aws_security_group" "SG_BE_EC2" {
 
   name = "SG_BE_EC2"
+  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
 
   ingress {
     from_port   = 3000
@@ -266,6 +271,7 @@ resource "aws_security_group" "SG_BE_EC2" {
 resource "aws_security_group" "SG_RDS" {
 
   name = "SG_RDS"
+  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
 
   ingress {
     from_port   = 3306
