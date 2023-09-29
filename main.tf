@@ -90,7 +90,8 @@ resource "aws_internet_gateway" "IGW" {
 }
 
 resource "aws_eip" "nat_gateway_ip" {
-  instance = aws_nat_gateway.NATGW.id
+  domain = "vpc"
+  depends_on = [aws_internet_gateway.IGW]
 }
 
 resource "aws_nat_gateway" "NATGW" {
