@@ -90,7 +90,6 @@ resource "aws_internet_gateway" "IGW" {
 }
 
 resource "aws_eip" "nat_gateway_ip" {
-  domain = "vpc"
   depends_on = [aws_internet_gateway.IGW]
 }
 
