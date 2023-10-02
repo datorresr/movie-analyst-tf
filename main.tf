@@ -15,16 +15,13 @@ provider "aws" {
 
 
 resource "aws_vpc" "VPCDevOpsRampUp" {
-
-}
-import {
- id = "vpc-0014df68b2375fd8f"
- # Resource address
- to = VPCDevOpsRampUp.this
+  id = "vpc-0014df68b2375fd8f"
 }
 
-
-
+resource "aws_subnet" "PubLB1" {
+  vpc_id     = aws_vpc.VPCDevOpsRampUp.id
+  cidr_block = "10.1.0.0/24"
+}
 
 resource "aws_subnet" "PubLB1" {
   vpc_id     = aws_vpc.VPCDevOpsRampUp.id
@@ -110,6 +107,16 @@ resource "aws_nat_gateway" "NATGW" {
 }
 
 
+
+
+
+resource "aws_route_table" "PubRTBastion" {
+  vpc_id = aws_vpc.VPCDevOpsRampUp.id
+  tags = {
+    Name = "PubRTBastion"
+  }
+}
+
 resource "aws_route_table" "PriRTFE" {
   vpc_id = aws_vpc.VPCDevOpsRampUp.id
   route {
@@ -177,31 +184,8 @@ resource "aws_route_table_association" "RTA_PriBE2" {
 
 
 resource "aws_security_group" "SG_BASTION" {
-
   name = "SG_BASTION"
   vpc_id      = aws_vpc.VPCDevOpsRampUp.id
-
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["190.26.136.95/32"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["181.57.222.62/32"]
-  }
-
 }
 resource "aws_security_group" "SG_LB_EXT_FE" {
 
