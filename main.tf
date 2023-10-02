@@ -17,6 +17,11 @@ provider "aws" {
 resource "aws_vpc" "VPCDevOpsRampUp" {
 
 }
+import {
+ id = "vpc-0014df68b2375fd8f"
+ # Resource address
+ to = VPCDevOpsRampUp.this
+}
 
 
 
