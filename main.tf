@@ -17,6 +17,9 @@ provider "aws" {
 resource "aws_vpc" "VPCDevOpsRampUp" {
   id = vpc-0014df68b2375fd8f
   cidr_block = "10.1.0.0/16"
+  tags = {
+    Name = "VPCDevOpsRampUp"
+  }
 }
 
 resource "aws_subnet" "BastionSN" {
