@@ -47,27 +47,22 @@ resource "aws_autoscaling_group" "MoviesBackEndAS" {
   vpc_zone_identifier = [aws_subnet.PriBE1.id, aws_subnet.PriBE2.id]
 
 
-  target_group_arns = [aws_lb_target_group.BE_LB_TG.arn]
+  target_group_arns = [aws_lb_target_group.BE-LB-TG.arn]
 
   launch_template {
     id      = aws_launch_template.MoviesBackEndTemplate.id
     version = "$Latest"
   }
 
-  tag {
-    key                 = "Name"
-    value               = "terraform-asg-example"
-    propagate_at_launch = true
-  }
 }
 
 
 resource "aws_lb" "MoviesLBBackEnd" {
 
   name               = "MoviesLBBackEnd"
-
+  internal           = true
   load_balancer_type = "application"
-  subnets            = data.aws_subnets.default.ids
+  subnets            = [aws_subnet.PriBE1.id, aws_subnet.PriBE2.id]
   security_groups    = [aws_security_group.SG_LB_INT_BE.id]
 }
 
@@ -88,9 +83,9 @@ resource "aws_lb_listener" "BE_Listener" {
   }
 }
 
-resource "aws_lb_target_group" "BE_LB_TG" {
+resource "aws_lb_target_group" "BE-LB-TG" {
 
-  name = "BE_LB_TG"
+  name = "BE-LB-TG"
 
   port     = 3000
   protocol = "HTTP"
@@ -108,7 +103,7 @@ resource "aws_lb_target_group" "BE_LB_TG" {
 }
 
 resource "aws_lb_listener_rule" "asg" {
-  listener_arn = aws_lb_listener.http.arn
+  listener_arn = aws_lb_listener.BE_Listener.arn
   priority     = 100
 
   condition {
@@ -119,6 +114,6 @@ resource "aws_lb_listener_rule" "asg" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.BE_LB_TG.arn
+    target_group_arn = aws_lb_target_group.BE-LB-TG.arn
   }
 }
