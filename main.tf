@@ -297,6 +297,7 @@ resource "aws_db_instance" "MoviesDB" {
   username             = "applicationuser"
   password             = "applicationuser"
   parameter_group_name = "default.mysql8.0"
+  ca_cert_identifier = "rds-ca-rsa2048-g1"
   db_subnet_group_name      = "${aws_db_subnet_group.movies_RDS_SNG.id}"
   availability_zone = "us-east-1a"
   db_name = "movie_db"
