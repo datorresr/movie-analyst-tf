@@ -13,22 +13,4 @@ provider "aws" {
   region = "us-east-1"
 }
 
-module "network" {
-  source = "./"
-}
 
-module "security" {
-  source = "./"
-}
-
-module "database" {
-  source = "./"
-}
-
-module "backend" {
-  source = "./"
-}
-
-module "frontend" {
-  source = "./"
-}
