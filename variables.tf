@@ -10,5 +10,13 @@ variable "SG_BASTION" {
   default     = "sg-0a5ba0c025cbf1f01" 
 }
 
+variable "IGW" {
+  description = "ID del Internet Gateway IGW"
+  type        = string
+  default     = "igw-06bc140a6a7612779" 
+}
+
+
+
 
 

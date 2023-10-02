@@ -74,16 +74,9 @@ resource "aws_subnet" "PriBE2" {
   }
 }
 
-resource "aws_internet_gateway" "IGW" {
-  vpc_id = var.VPCDevOpsRampUp
 
-  tags = {
-    Name = "IGW"
-  }
-}
 
 resource "aws_eip" "nat_gateway_ip" {
-  depends_on = [aws_internet_gateway.IGW]
 }
 
 resource "aws_nat_gateway" "NATGW" {
@@ -93,7 +86,6 @@ resource "aws_nat_gateway" "NATGW" {
     Name = "NATGW"
   }
 
-  depends_on = [aws_internet_gateway.IGW]
 
 }
 
@@ -136,7 +128,7 @@ resource "aws_route_table" "PubRT" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.IGW.id
+    gateway_id = var.IGW
   }
 
   tags = {
@@ -171,13 +163,6 @@ resource "aws_route_table_association" "RTA_PriBE2" {
   route_table_id = aws_route_table.PriRTBE.id
 }
 
-
-
-
-resource "aws_security_group" "SG_BASTION" {
-  name = "SG_BASTION"
-  vpc_id      = var.VPCDevOpsRampUp
-}
 resource "aws_security_group" "SG_LB_EXT_FE" {
 
   name = "SG_LB_EXT_FE"
