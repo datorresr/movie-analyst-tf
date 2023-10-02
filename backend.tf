@@ -9,10 +9,6 @@ resource "aws_launch_template" "MoviesBackEndTemplate" {
   instance_type = "t2.micro"
   key_name = "devopsrampup"
 
-  network_interfaces {
-    associate_public_ip_address = false
-  }
-
   vpc_security_group_ids = ["${aws_security_group.SG_BE_EC2.id}"]
 
   tag_specifications {
