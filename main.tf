@@ -13,13 +13,17 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_vpc" "VPCDevOpsRampUp" {
-  cidr_block       = "10.1.0.0/16"
-
-  tags = {
-    Name = "VPCDevOpsRampUp"
-  }
+import {
+ id = "vpc-0014df68b2375fd8f"
+ # Resource address
+ to = VPCDevOpsRampUp.this
 }
+resource "aws_vpc" "VPCDevOpsRampUp" {
+
+}
+
+
+
 
 resource "aws_subnet" "PubLB1" {
   vpc_id     = aws_vpc.VPCDevOpsRampUp.id
