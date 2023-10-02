@@ -281,3 +281,40 @@ resource "null_resource" "execute_sql" {
     command = "mysql -h ${aws_db_instance.MoviesDB.address} -P ${aws_db_instance.MoviesDB.port} -u ${aws_db_instance.MoviesDB.username} -p${aws_db_instance.MoviesDB.password} < table_creation.sql"
   }
 }
+
+
+
+resource "aws_launch_template" "foo" {
+  name = "foo"
+
+  iam_instance_profile {
+    name = "arn:aws:iam::700029235138:instance-profile/MySessionManagerRole"
+  }
+
+  image_id = "ami-00e985a026a8707df"
+  instance_type = "t2.micro"
+  key_name = "devopsrampup"
+
+  network_interfaces {
+    associate_public_ip_address = false
+  }
+
+  vpc_security_group_ids = ["${aws_security_group.SG_BE_EC2.id}"]
+
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "MoviesBackEnd"
+    }
+  }
+
+  user_data = <<-EOF
+              #!/bin/bash
+              exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+              cd /home/ec2-user/movie-analyst-api
+              su ec2-user -c 'git pull origin master'
+              systemctl restart moviesback
+              systemctl status moviesback
+              EOF
+}
+
