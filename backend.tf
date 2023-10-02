@@ -22,7 +22,7 @@ resource "aws_launch_template" "MoviesBackEndTemplate" {
     }
   }
 
-  user_data = <<-EOF
+  user_data = base64encode(<<-EOF
               #!/bin/bash
               exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
               DB_ENDPOINT="${aws_db_instance.MoviesDB.address}"
@@ -31,6 +31,7 @@ resource "aws_launch_template" "MoviesBackEndTemplate" {
               systemctl restart moviesback
               systemctl status moviesback
               EOF
+              )
 }
 
 
