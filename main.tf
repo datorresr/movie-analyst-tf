@@ -278,6 +278,6 @@ resource "null_resource" "execute_sql" {
     instance_id = aws_db_instance.MoviesDB.id
   }
   provisioner "local-exec" {
-    command = "mysql -h ${aws_db_instance.MoviesDB.endpoint} -P ${aws_db_instance.MoviesDB.port} -u ${aws_db_instance.MoviesDB.username} -p${aws_db_instance.MoviesDB.password} < table_creation.sql"
+    command = "mysql -h ${aws_db_instance.MoviesDB.address} -P ${aws_db_instance.MoviesDB.port} -u ${aws_db_instance.MoviesDB.username} -p${aws_db_instance.MoviesDB.password} < table_creation.sql"
   }
 }
