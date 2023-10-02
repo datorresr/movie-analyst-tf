@@ -14,21 +14,21 @@ provider "aws" {
 }
 
 module "network" {
-  source = "./network"
+  source = "./"
 }
 
 module "security" {
-  source = "./security"
+  source = "./"
 }
 
 module "database" {
-  source = "./database"
+  source = "./"
 }
 
 module "backend" {
-  source = "./backend"
+  source = "./"
 }
 
 module "frontend" {
-  source = "./frontend"
+  source = "./"
 }
