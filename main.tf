@@ -18,7 +18,7 @@ resource "aws_vpc" "VPCDevOpsRampUp" {
   id = "vpc-0014df68b2375fd8f"
 }
 
-resource "aws_subnet" "PubLB1" {
+resource "aws_subnet" "BastionSN" {
   vpc_id     = aws_vpc.VPCDevOpsRampUp.id
   cidr_block = "10.1.0.0/24"
 }
