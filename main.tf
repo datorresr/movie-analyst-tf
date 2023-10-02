@@ -15,7 +15,7 @@ provider "aws" {
 
 
 resource "aws_vpc" "VPCDevOpsRampUp" {
-  id = "vpc-0014df68b2375fd8f"
+  id = vpc-0014df68b2375fd8f
 }
 
 resource "aws_subnet" "BastionSN" {
