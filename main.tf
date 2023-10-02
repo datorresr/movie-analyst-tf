@@ -14,21 +14,8 @@ provider "aws" {
 }
 
 
-resource "aws_vpc" "VPCDevOpsRampUp" {
-  id = vpc-0014df68b2375fd8f
-  cidr_block = "10.1.0.0/16"
-  tags = {
-    Name = "VPCDevOpsRampUp"
-  }
-}
-
-resource "aws_subnet" "BastionSN" {
-  vpc_id     = aws_vpc.VPCDevOpsRampUp.id
-  cidr_block = "10.1.0.0/24"
-}
-
 resource "aws_subnet" "PubLB1" {
-  vpc_id     = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id     = var.VPCDevOpsRampUp
   availability_zone = "us-east-1a"
   cidr_block = "10.1.1.0/24"
 
@@ -38,7 +25,7 @@ resource "aws_subnet" "PubLB1" {
 }
 
 resource "aws_subnet" "PubLB2" {
-  vpc_id     = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id     = var.VPCDevOpsRampUp
   availability_zone = "us-east-1b"
   cidr_block = "10.1.2.0/24"
 
@@ -48,7 +35,7 @@ resource "aws_subnet" "PubLB2" {
 }
 
 resource "aws_subnet" "PriFE1" {
-  vpc_id     = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id     = var.VPCDevOpsRampUp
   availability_zone = "us-east-1a"
   cidr_block = "10.1.3.0/24"
 
@@ -58,7 +45,7 @@ resource "aws_subnet" "PriFE1" {
 }
 
 resource "aws_subnet" "PriFE2" {
-  vpc_id     = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id     = var.VPCDevOpsRampUp
   availability_zone = "us-east-1b"
   cidr_block = "10.1.4.0/24"
 
@@ -68,7 +55,7 @@ resource "aws_subnet" "PriFE2" {
 }
 
 resource "aws_subnet" "PriBE1" {
-  vpc_id     = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id     = var.VPCDevOpsRampUp
   availability_zone = "us-east-1a"
   cidr_block = "10.1.5.0/24"
 
@@ -78,7 +65,7 @@ resource "aws_subnet" "PriBE1" {
 }
 
 resource "aws_subnet" "PriBE2" {
-  vpc_id     = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id     = var.VPCDevOpsRampUp
   availability_zone = "us-east-1b"
   cidr_block = "10.1.6.0/24"
 
@@ -88,7 +75,7 @@ resource "aws_subnet" "PriBE2" {
 }
 
 resource "aws_internet_gateway" "IGW" {
-  vpc_id = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id = var.VPCDevOpsRampUp
 
   tags = {
     Name = "IGW"
@@ -115,14 +102,14 @@ resource "aws_nat_gateway" "NATGW" {
 
 
 resource "aws_route_table" "PubRTBastion" {
-  vpc_id = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id = var.VPCDevOpsRampUp
   tags = {
     Name = "PubRTBastion"
   }
 }
 
 resource "aws_route_table" "PriRTFE" {
-  vpc_id = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id = var.VPCDevOpsRampUp
   route {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.NATGW.id
@@ -134,7 +121,7 @@ resource "aws_route_table" "PriRTFE" {
 }
 
 resource "aws_route_table" "PriRTBE" {
-  vpc_id = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id = var.VPCDevOpsRampUp
   route {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.NATGW.id
@@ -145,7 +132,7 @@ resource "aws_route_table" "PriRTBE" {
 }
 
 resource "aws_route_table" "PubRT" {
-  vpc_id = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id = var.VPCDevOpsRampUp
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -189,12 +176,12 @@ resource "aws_route_table_association" "RTA_PriBE2" {
 
 resource "aws_security_group" "SG_BASTION" {
   name = "SG_BASTION"
-  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id      = var.VPCDevOpsRampUp
 }
 resource "aws_security_group" "SG_LB_EXT_FE" {
 
   name = "SG_LB_EXT_FE"
-  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id      = var.VPCDevOpsRampUp
 
   ingress {
     from_port   = 80
@@ -207,7 +194,7 @@ resource "aws_security_group" "SG_LB_EXT_FE" {
 resource "aws_security_group" "SG_FE_EC2" {
 
   name = "SG_FE_EC2"
-  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id      = var.VPCDevOpsRampUp
 
   ingress {
     from_port   = 3030
@@ -220,7 +207,7 @@ resource "aws_security_group" "SG_FE_EC2" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    security_groups  = [aws_security_group.SG_BASTION.id]
+    security_groups  = [var.SG_BASTION]
   }
 
 }
@@ -228,7 +215,7 @@ resource "aws_security_group" "SG_FE_EC2" {
 resource "aws_security_group" "SG_LB_INT_BE" {
 
   name = "SG_LB_INT_BE"
-  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id      = var.VPCDevOpsRampUp
 
   ingress {
     from_port   = 3000
@@ -243,7 +230,7 @@ resource "aws_security_group" "SG_LB_INT_BE" {
 resource "aws_security_group" "SG_BE_EC2" {
 
   name = "SG_BE_EC2"
-  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id      = var.VPCDevOpsRampUp
 
   ingress {
     from_port   = 3000
@@ -256,7 +243,7 @@ resource "aws_security_group" "SG_BE_EC2" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    security_groups  = [aws_security_group.SG_BASTION.id]
+    security_groups  = [var.SG_BASTION]
   }
 
 }
@@ -264,13 +251,13 @@ resource "aws_security_group" "SG_BE_EC2" {
 resource "aws_security_group" "SG_RDS" {
 
   name = "SG_RDS"
-  vpc_id      = aws_vpc.VPCDevOpsRampUp.id
+  vpc_id      = var.VPCDevOpsRampUp
 
   ingress {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    security_groups  = [aws_security_group.SG_BASTION.id, aws_security_group.SG_BE_EC2.id]
+    security_groups  = [var.SG_BASTION, aws_security_group.SG_BE_EC2.id]
   }
 
 }
