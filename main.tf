@@ -13,11 +13,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-import {
- id = "vpc-0014df68b2375fd8f"
- # Resource address
- to = VPCDevOpsRampUp.this
-}
+
 resource "aws_vpc" "VPCDevOpsRampUp" {
 
 }
