@@ -22,6 +22,7 @@ resource "aws_launch_template" "MoviesBackEndTemplate" {
               #!/bin/bash
               exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
               su ec2-user -c 'DB_ENDPOINT="${aws_db_instance.MoviesDB.address}"'
+              su ec2-user -c 'export DB_ENDPOINT'
               cd /home/ec2-user/movie-analyst-api
               su ec2-user -c 'git pull origin master'
               systemctl restart moviesback
