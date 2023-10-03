@@ -57,7 +57,7 @@ resource "aws_autoscaling_group" "MoviesFrontEndAS" {
 resource "aws_lb" "MoviesLBFrontEnd" {
 
   name               = "MoviesLBFrontEnd"
-  internal           = true
+  internal           = false
   load_balancer_type = "application"
   subnets            = [aws_subnet.PubLB1.id, aws_subnet.PubLB2.id]
   security_groups    = [aws_security_group.SG_LB_EXT_FE.id]
