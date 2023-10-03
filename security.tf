@@ -10,6 +10,13 @@ resource "aws_security_group" "SG_LB_EXT_FE" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
 resource "aws_security_group" "SG_FE_EC2" {
 
@@ -30,6 +37,13 @@ resource "aws_security_group" "SG_FE_EC2" {
     security_groups  = [var.SG_BASTION]
   }
 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
 
 resource "aws_security_group" "SG_LB_INT_BE" {
@@ -42,6 +56,13 @@ resource "aws_security_group" "SG_LB_INT_BE" {
     to_port     = 3000
     protocol    = "tcp"
     security_groups  = [aws_security_group.SG_FE_EC2.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
 }
@@ -66,6 +87,13 @@ resource "aws_security_group" "SG_BE_EC2" {
     security_groups  = [var.SG_BASTION]
   }
 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
 
 resource "aws_security_group" "SG_RDS" {
@@ -78,6 +106,13 @@ resource "aws_security_group" "SG_RDS" {
     to_port     = 3306
     protocol    = "tcp"
     security_groups  = [var.SG_BASTION, aws_security_group.SG_BE_EC2.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
 }
