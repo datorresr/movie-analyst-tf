@@ -99,7 +99,7 @@ resource "aws_lb_target_group" "FE-LB-TG" {
   }
 }
 
-resource "aws_lb_listener_rule" "asg" {
+resource "aws_lb_listener_rule" "asgfe" {
   listener_arn = aws_lb_listener.FE_Listener.arn
   priority     = 100
 
