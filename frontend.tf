@@ -21,7 +21,7 @@ resource "aws_launch_template" "MoviesFrontEndTemplate" {
   user_data = base64encode(<<-EOF
               #!/bin/bash
               exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
-              echo 'export BACK_HOST="${aws_lb.MoviesLBBackEnd.dns_name}"' >> /etc/environment
+              echo 'BACK_HOST="${aws_lb.MoviesLBBackEnd.dns_name}"' >> /etc/environment
               cd /home/ec2-user/movie-analyst-ui
               su ec2-user -c 'git pull origin master'
               systemctl restart movies
