@@ -1,14 +1,14 @@
-CREATE TABLE movie_db.publication (name VARCHAR(255) PRIMARY KEY, avatar VARCHAR(21));
-CREATE TABLE movie_db.reviewers (name VARCHAR(255) PRIMARY KEY, avatar VARCHAR(255), publication VARCHAR(255), FOREIGN KEY (publication) REFERENCES publication(name) ON DELETE CASCADE);
+CREATE TABLE movie_db.publications (name VARCHAR(255) PRIMARY KEY, avatar VARCHAR(21));
+CREATE TABLE movie_db.reviewers (name VARCHAR(255) PRIMARY KEY, avatar VARCHAR(255), publication VARCHAR(255), FOREIGN KEY (publication) REFERENCES publications(name) ON DELETE CASCADE);
 CREATE TABLE movie_db.movies (title VARCHAR(255) PRIMARY KEY, release_year VARCHAR(255), score INTEGER, reviewer VARCHAR(255), FOREIGN KEY (reviewer) REFERENCES reviewers(name) ON DELETE CASCADE);
 
-INSERT INTO movie_db.publication (name, avatar) VALUES ('The Daily Reviewer', 'glyphicon-eye-open');
-INSERT INTO movie_db.publication (name, avatar) VALUES ('International Movie Critic', 'glyphicon-fire');
-INSERT INTO movie_db.publication (name, avatar) VALUES ('MoviesNow', 'glyphicon-time');
-INSERT INTO movie_db.publication (name, avatar) VALUES ('MyNextReview', 'glyphicon-record');
-INSERT INTO movie_db.publication (name, avatar) VALUES ('Movies Games', 'glyphicon-heart-empty');
-INSERT INTO movie_db.publication (name, avatar) VALUES ('TheOne', 'glyphicon-globe');
-INSERT INTO movie_db.publication (name, avatar) VALUES ('ComicBookHero.com', 'glyphicon-flash');
+INSERT INTO movie_db.publications (name, avatar) VALUES ('The Daily Reviewer', 'glyphicon-eye-open');
+INSERT INTO movie_db.publications (name, avatar) VALUES ('International Movie Critic', 'glyphicon-fire');
+INSERT INTO movie_db.publications (name, avatar) VALUES ('MoviesNow', 'glyphicon-time');
+INSERT INTO movie_db.publications (name, avatar) VALUES ('MyNextReview', 'glyphicon-record');
+INSERT INTO movie_db.publications (name, avatar) VALUES ('Movies Games', 'glyphicon-heart-empty');
+INSERT INTO movie_db.publications (name, avatar) VALUES ('TheOne', 'glyphicon-globe');
+INSERT INTO movie_db.publications (name, avatar) VALUES ('ComicBookHero.com', 'glyphicon-flash');
 
 INSERT INTO movie_db.reviewers (name, avatar, publication) VALUES ('Robert Smith','https://s3.amazonaws.com/uifaces/faces/twitter/angelcolberg/128.jpg','The Daily Reviewer');
 INSERT INTO movie_db.reviewers (name, avatar, publication) VALUES ('Chris Harris','https://s3.amazonaws.com/uifaces/faces/twitter/bungiwan/128.jpg','International Movie Critic');
