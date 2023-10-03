@@ -5,7 +5,7 @@ resource "aws_launch_template" "MoviesFrontEndTemplate" {
     name = "MySessionManagerRole"
   }
 
-  image_id = "ami-0a08905e1b9d0937c"
+  image_id = "ami-0e68966e322e1eb13"
   instance_type = "t2.micro"
   key_name = "devopsrampup"
 

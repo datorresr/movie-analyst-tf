@@ -5,7 +5,7 @@ resource "aws_launch_template" "MoviesBackEndTemplate" {
     name = "MySessionManagerRole"
   }
 
-  image_id = "ami-00e985a026a8707df"
+  image_id = "ami-0e47f18754b239112"
   instance_type = "t2.micro"
   key_name = "devopsrampup"
 
@@ -21,7 +21,9 @@ resource "aws_launch_template" "MoviesBackEndTemplate" {
   user_data = base64encode(<<-EOF
               #!/bin/bash
               exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
-              echo 'export DB_HOST="${aws_db_instance.MoviesDB.address}"' >> /etc/environment
+              echo 'DB_HOST="${aws_db_instance.MoviesDB.address}"' >> /etc/environment
+              echo 'DB_USER="${aws_db_instance.MoviesDB.username}"' >> /etc/environment
+              echo 'DB_PASS="${aws_db_instance.MoviesDB.password}"' >> /etc/environment
               cd /home/ec2-user/movie-analyst-api
               su ec2-user -c 'git pull origin master'
               systemctl restart moviesback
