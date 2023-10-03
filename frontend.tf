@@ -23,6 +23,7 @@ resource "aws_launch_template" "MoviesFrontEndTemplate" {
               exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
               su ec2-user -c 'BACK_LB="${aws_lb.MoviesLBBackEnd.dns_name}"'
               su ec2-user -c 'export BACK_LB'
+              echo $BACK_LB
               cd /home/ec2-user/movie-analyst-ui
               su ec2-user -c 'git pull origin master'
               systemctl restart movies
