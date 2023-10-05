@@ -9,7 +9,7 @@ resource "aws_launch_template" "MoviesFrontEndTemplate" {
   instance_type = "t2.micro"
   key_name = "devopsrampup"
 
-  vpc_security_group_ids = ["${data.terraform_remote_state.net.SG_FE_EC2_id}"]
+  vpc_security_group_ids = ["${data.terraform_remote_state.net.outputs.SG_FE_EC2_id}"]
 
   tag_specifications {
     resource_type = "instance"
