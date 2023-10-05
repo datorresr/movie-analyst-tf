@@ -9,7 +9,7 @@ resource "aws_launch_template" "MoviesBackEndTemplate" {
   instance_type = "t2.micro"
   key_name = "devopsrampup"
 
-  vpc_security_group_ids = ["${aws_security_group.SG_BE_EC2.id}"]
+  vpc_security_group_ids = ["${data.terraform_remote_state.network.SG_BE_EC2_id}"]
 
   tag_specifications {
     resource_type = "instance"
@@ -21,9 +21,9 @@ resource "aws_launch_template" "MoviesBackEndTemplate" {
   user_data = base64encode(<<-EOF
               #!/bin/bash
               exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
-              echo 'DB_HOST="${aws_db_instance.MoviesDB.address}"' >> /etc/environment
-              echo 'DB_USER="${aws_db_instance.MoviesDB.username}"' >> /etc/environment
-              echo 'DB_PASS="${aws_db_instance.MoviesDB.password}"' >> /etc/environment
+              echo 'DB_HOST="${data.terraform_remote_state.db.outputs.moviesDB_address}"' >> /etc/environment
+              echo 'DB_USER="${data.terraform_remote_state.db.outputs.moviesDB_username}"' >> /etc/environment
+              echo 'DB_PASS="${data.terraform_remote_state.db.outputs.moviesDB_password}"' >> /etc/environment
               cd /home/ec2-user/movie-analyst-api
               su ec2-user -c 'git pull origin master'
               systemctl restart moviesback
@@ -43,7 +43,7 @@ resource "aws_autoscaling_group" "MoviesBackEndAS" {
 
   force_delete = true
 
-  vpc_zone_identifier = [aws_subnet.PriBE1.id, aws_subnet.PriBE2.id]
+  vpc_zone_identifier = [data.terraform_remote_state.network.outputs.subnet_PriBE1_id, data.terraform_remote_state.network.outputs.subnet_PriBE2_id]
 
 
   target_group_arns = [aws_lb_target_group.BE-LB-TG.arn]
@@ -61,8 +61,8 @@ resource "aws_lb" "MoviesLBBackEnd" {
   name               = "MoviesLBBackEnd"
   internal           = true
   load_balancer_type = "application"
-  subnets            = [aws_subnet.PriBE1.id, aws_subnet.PriBE2.id]
-  security_groups    = [aws_security_group.SG_LB_INT_BE.id]
+  subnets            = [data.terraform_remote_state.network.outputs.subnet_PriBE1_id, data.terraform_remote_state.network.outputs.subnet_PriBE2_id]
+  security_groups    = [data.terraform_remote_state.network.outputs.SG_LB_INT_BE_id]
 }
 
 resource "aws_lb_listener" "BE_Listener" {

@@ -9,7 +9,7 @@ resource "aws_launch_template" "MoviesFrontEndTemplate" {
   instance_type = "t2.micro"
   key_name = "devopsrampup"
 
-  vpc_security_group_ids = ["${aws_security_group.SG_FE_EC2.id}"]
+  vpc_security_group_ids = ["${data.terraform_remote_state.network.SG_FE_EC2_id}"]
 
   tag_specifications {
     resource_type = "instance"
@@ -41,7 +41,7 @@ resource "aws_autoscaling_group" "MoviesFrontEndAS" {
 
   force_delete = true
 
-  vpc_zone_identifier = [aws_subnet.PriFE1.id, aws_subnet.PriFE2.id]
+  vpc_zone_identifier = [data.terraform_remote_state.network.outputs.subnet_PriFE1_id, data.terraform_remote_state.network.outputs.subnet_PriFE2_id]
 
 
   target_group_arns = [aws_lb_target_group.FE-LB-TG.arn]
@@ -59,8 +59,8 @@ resource "aws_lb" "MoviesLBFrontEnd" {
   name               = "MoviesLBFrontEnd"
   internal           = false
   load_balancer_type = "application"
-  subnets            = [aws_subnet.PubLB1.id, aws_subnet.PubLB2.id]
-  security_groups    = [aws_security_group.SG_LB_EXT_FE.id]
+  subnets            = [data.terraform_remote_state.network.outputs.subnet_PubLB1_id, data.terraform_remote_state.network.outputs.subnet_PubLB2_id]
+  security_groups    = [data.terraform_remote_state.network.outputs.SG_LB_EXT_FE_id]
 }
 
 resource "aws_lb_listener" "FE_Listener" {
