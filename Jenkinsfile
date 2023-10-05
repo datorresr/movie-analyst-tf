@@ -9,14 +9,20 @@ pipeline {
         }
         stage('Terraform init') {
             steps {
-                sh 'cd stage'
-                sh 'terraform init'
+
+                dir('/var/lib/jenkins/workspace/MoviesTF/stage') {
+
+                    sh 'terraform init'
+                }
+                
             }
         }
         stage('Terraform action') {
             steps {
-                sh 'cd stage'
-                sh 'terraform ${action} --auto-approve'
+                dir('/var/lib/jenkins/workspace/MoviesTF/stage') {
+                    sh 'terraform ${action} --auto-approve'
+                }
+
             }
         }
         
