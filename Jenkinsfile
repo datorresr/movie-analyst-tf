@@ -20,7 +20,7 @@ pipeline {
         stage('Terraform action') {
             steps {
                 dir('/var/lib/jenkins/workspace/MoviesTF/stage') {
-                    sh 'terraform ${action} --auto-approve'
+                    sh 'terraform ${action} --auto-approve -lock=false'
                 }
 
             }
