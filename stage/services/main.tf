@@ -26,7 +26,7 @@ provider "aws" {
 }
 
 
-data "terraform_remote_state" "network" {
+data "terraform_remote_state" "net" {
   backend = "s3"
 
   config = {

@@ -9,7 +9,7 @@ resource "aws_launch_template" "MoviesBackEndTemplate" {
   instance_type = "t2.micro"
   key_name = "devopsrampup"
 
-  vpc_security_group_ids = ["${data.terraform_remote_state.network.SG_BE_EC2_id}"]
+  vpc_security_group_ids = ["${data.terraform_remote_state.net.SG_BE_EC2_id}"]
 
   tag_specifications {
     resource_type = "instance"
@@ -43,7 +43,7 @@ resource "aws_autoscaling_group" "MoviesBackEndAS" {
 
   force_delete = true
 
-  vpc_zone_identifier = [data.terraform_remote_state.network.outputs.subnet_PriBE1_id, data.terraform_remote_state.network.outputs.subnet_PriBE2_id]
+  vpc_zone_identifier = [data.terraform_remote_state.net.outputs.subnet_PriBE1_id, data.terraform_remote_state.net.outputs.subnet_PriBE2_id]
 
 
   target_group_arns = [aws_lb_target_group.BE-LB-TG.arn]
@@ -61,8 +61,8 @@ resource "aws_lb" "MoviesLBBackEnd" {
   name               = "MoviesLBBackEnd"
   internal           = true
   load_balancer_type = "application"
-  subnets            = [data.terraform_remote_state.network.outputs.subnet_PriBE1_id, data.terraform_remote_state.network.outputs.subnet_PriBE2_id]
-  security_groups    = [data.terraform_remote_state.network.outputs.SG_LB_INT_BE_id]
+  subnets            = [data.terraform_remote_state.net.outputs.subnet_PriBE1_id, data.terraform_remote_state.net.outputs.subnet_PriBE2_id]
+  security_groups    = [data.terraform_remote_state.net.outputs.SG_LB_INT_BE_id]
 }
 
 resource "aws_lb_listener" "BE_Listener" {
