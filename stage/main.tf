@@ -3,17 +3,17 @@ provider "aws" {
 }
 
 module "network" {
-  source = "./modules/network"
+  source = "../modules/network"
 
 }
 
 module "database" {
-  source = "./modules/database"
+  source = "../modules/database"
 
 }
 
 module "services" {
-  source = "./modules/services"
+  source = "../modules/services"
 
 }
 
