@@ -1,6 +1,6 @@
 resource "aws_db_subnet_group" "movies_RDS_SNG" {
   name       = "main"
-  subnet_ids = [data.terraform_remote_state.net.outputs.subnet_PriBE1_id, data.terraform_remote_state.net.outputs.subnet_PriBE2_id]
+  subnet_ids = [module.network.subnet_PriBE1_id, module.network.subnet_PriBE2_id]
 }
 
 resource "aws_db_instance" "MoviesDB" {
@@ -16,7 +16,7 @@ resource "aws_db_instance" "MoviesDB" {
   db_subnet_group_name      = "${aws_db_subnet_group.movies_RDS_SNG.id}"
   availability_zone = "us-east-1a"
   db_name = "movie_db"
-  vpc_security_group_ids = ["${data.terraform_remote_state.net.outputs.SG_RDS_id}"]
+  vpc_security_group_ids = ["${module.network.SG_RDS_id}"]
   skip_final_snapshot  = true
   publicly_accessible =  false
 }

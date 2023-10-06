@@ -4,6 +4,7 @@ provider "aws" {
 
 module "stage_network" {
   source = "../modules/network"
+
 }
 
 module "stage_database" {
