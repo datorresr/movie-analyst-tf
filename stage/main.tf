@@ -9,6 +9,8 @@ module "stage_network" {
 
 module "stage_database" {
   source = "../modules/database"
+
+  
 }
 
 module "stage_services" {
