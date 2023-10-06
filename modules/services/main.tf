@@ -21,29 +21,26 @@ terraform {
   
 }
 
-provider "aws" {
-  region = "us-east-1"
-}
 
 
 data "terraform_remote_state" "net" {
   backend = "s3"
 
-  config = {
-    bucket = "terraform-state-movieapp"
-    key    = "stage/network/terraform.tfstate"
-    region = "us-east-1"
-  }
+  //config = {
+  //  bucket = "terraform-state-movieapp"
+  //  key    = "stage/network/terraform.tfstate"
+  //  region = "us-east-1"
+  //}
 }
 
 
 data "terraform_remote_state" "db" {
   backend = "s3"
 
-  config = {
-    bucket = "terraform-state-movieapp"
-    key    = "stage/database/terraform.tfstate"
-    region = "us-east-1"
-  }
+  //config = {
+  //  bucket = "terraform-state-movieapp"
+  //  key    = "stage/database/terraform.tfstate"
+  //  region = "us-east-1"
+  //}
 }
 

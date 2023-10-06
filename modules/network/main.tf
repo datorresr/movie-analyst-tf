@@ -11,7 +11,7 @@ terraform {
   backend "s3" {
     # Replace this with your bucket name!
     bucket         = "terraform-state-movieapp"
-    key            = "stage/database/terraform.tfstate"
+    key            = "stage/network/terraform.tfstate"
     region         = "us-east-1"
 
     # Replace this with your DynamoDB table name!
@@ -21,17 +21,6 @@ terraform {
   
 }
 
-provider "aws" {
-  region = "us-east-1"
-}
 
 
-data "terraform_remote_state" "net" {
-  backend = "s3"
 
-  config = {
-    bucket = "terraform-state-movieapp"
-    key    = "stage/network/terraform.tfstate"
-    region = "us-east-1"
-  }
-}
