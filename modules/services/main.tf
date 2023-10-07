@@ -33,7 +33,13 @@ data "terraform_remote_state" "net" {
   }
 }
 
+module "network" {
+  source = "../network"
+}
 
+module "database" {
+  source = "../database"
+}
 data "terraform_remote_state" "db" {
   backend = "s3"
 
