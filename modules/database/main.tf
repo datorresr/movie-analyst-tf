@@ -22,7 +22,7 @@ terraform {
 }
 
 module "network" {
-  source = "./modules/network"
+  source = "../network"
 }
 
 
