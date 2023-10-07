@@ -21,7 +21,9 @@ terraform {
   
 }
 
-
+module "network" {
+  source = "./modules/network"
+}
 
 
 data "terraform_remote_state" "net" {
