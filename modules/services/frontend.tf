@@ -9,7 +9,7 @@ resource "aws_launch_template" "MoviesFrontEndTemplate" {
   instance_type = "t2.micro"
   key_name = "devopsrampup"
 
-  vpc_security_group_ids = ["${module.network.outputs.SG_FE_EC2_id}"]
+  vpc_security_group_ids = ["${module.network.SG_FE_EC2_id}"]
 
   tag_specifications {
     resource_type = "instance"
@@ -41,7 +41,7 @@ resource "aws_autoscaling_group" "MoviesFrontEndAS" {
 
   force_delete = true
 
-  vpc_zone_identifier = [module.network.subnet_PriFE1_id, data.terraform_remote_state.net.outputs.subnet_PriFE2_id]
+  vpc_zone_identifier = [module.network.subnet_PriFE1_id, module.network.subnet_PriFE2_id]
 
 
   target_group_arns = [aws_lb_target_group.FE-LB-TG.arn]
