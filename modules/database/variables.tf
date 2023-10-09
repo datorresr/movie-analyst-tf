@@ -14,22 +14,8 @@ variable "subnet_PriBE2_id" {
   type        = string
 }
 
-variable "subnet_PriFE1_id" {
-  description = "subnet_PriFE1_id"
+variable "SG_RDS_id" {
+  description = "SG_RDS_id"
   type        = string
 }
 
-variable "subnet_PriFE2_id" {
-  description = "subnet_PriFE1_id"
-  type        = string
-}
-
-variable "subnet_PubLB1_id" {
-  description = "subnet_PubLB1_id"
-  type        = string
-}
-
-variable "subnet_PubLB2_id" {
-  description = "subnet_PubLB2_id"
-  type        = string
-}

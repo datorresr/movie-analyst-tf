@@ -9,7 +9,7 @@ resource "aws_launch_template" "MoviesFrontEndTemplate" {
   instance_type = "t2.micro"
   key_name = "devopsrampup"
 
-  vpc_security_group_ids = ["${module.stage.stage_network.SG_FE_EC2_id}"]
+  vpc_security_group_ids = ["${var.SG_FE_EC2_id}"]
 
   tag_specifications {
     resource_type = "instance"
@@ -41,7 +41,7 @@ resource "aws_autoscaling_group" "MoviesFrontEndAS" {
 
   force_delete = true
 
-  vpc_zone_identifier = [module.stage.stage_network.subnet_PriFE1_id, module.stage.stage_network.subnet_PriFE2_id]
+  vpc_zone_identifier = [var.subnet_PriFE1_id, var.subnet_PriFE2_id]
 
 
   target_group_arns = [aws_lb_target_group.FE-LB-TG.arn]
@@ -59,8 +59,8 @@ resource "aws_lb" "MoviesLBFrontEnd" {
   name               = "MoviesLBFrontEnd"
   internal           = false
   load_balancer_type = "application"
-  subnets            = [module.stage.stage_network.subnet_PubLB1_id, module.stage.stage_network.subnet_PubLB2_id]
-  security_groups    = [module.stage.stage_network.SG_LB_EXT_FE_id]
+  subnets            = [var.subnet_PubLB1_id, var.subnet_PubLB2_id]
+  security_groups    = [var.SG_LB_EXT_FE_id]
 }
 
 resource "aws_lb_listener" "FE_Listener" {

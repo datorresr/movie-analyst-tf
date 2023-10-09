@@ -16,7 +16,7 @@ resource "aws_db_instance" "MoviesDB" {
   db_subnet_group_name      = "${aws_db_subnet_group.movies_RDS_SNG.id}"
   availability_zone = "us-east-1a"
   db_name = "movie_db"
-  vpc_security_group_ids = ["${module.stage.stage_network.SG_RDS_id}"]
+  vpc_security_group_ids = ["${var.SG_RDS_id}"]
   skip_final_snapshot  = true
   publicly_accessible =  false
 }
