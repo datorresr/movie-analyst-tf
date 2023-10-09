@@ -1,4 +1,4 @@
-terraform {
+/* terraform {
   backend "s3" {
     # Replace this with your bucket name!
     bucket         = "terraform-state-movieapp"
@@ -10,4 +10,4 @@ terraform {
     encrypt        = true
   }
   
-}
+} */
