@@ -20,9 +20,3 @@ terraform {
   }
   
 }
-
-module "network" {
-  source = "../network"
-  AZ_A = "us-east-1a"
-  AZ_B = "us-east-1b"
-}

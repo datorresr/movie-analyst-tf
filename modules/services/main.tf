@@ -21,11 +21,7 @@ terraform {
   
 }
 
-module "network" {
-  source = "../network"
-}
 
-module "database" {
-  source = "../database"
-}
+
+
 
