@@ -21,32 +21,11 @@ terraform {
   
 }
 
-
-
-data "terraform_remote_state" "net" {
-  backend = "s3"
-
-  config = {
-    bucket = "terraform-state-movieapp"
-    key    = "stage/network/terraform.tfstate"
-    region = "us-east-1"
-  }
-}
-
 module "network" {
   source = "../network"
 }
 
 module "database" {
   source = "../database"
-}
-data "terraform_remote_state" "db" {
-  backend = "s3"
-
-  config = {
-    bucket = "terraform-state-movieapp"
-    key    = "stage/database/terraform.tfstate"
-    region = "us-east-1"
-  }
 }
 
