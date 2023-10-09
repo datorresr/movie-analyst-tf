@@ -83,6 +83,10 @@ variable "SG_LB_EXT_FE_id" {
   type        = string
 }
 
+variable "env" {
+  description = "env"
+  type        = string
+}
 
 
 

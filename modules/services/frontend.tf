@@ -1,8 +1,8 @@
 resource "aws_launch_template" "MoviesFrontEndTemplate" {
-  name = "MoviesFrontEndTemplate"
+  name = "${var.env}-MoviesFrontEndTemplate"
 
   iam_instance_profile {
-    name = "MySessionManagerRole"
+    name = "${var.env}-MySessionManagerRole"
   }
 
   image_id = "ami-0b5e5db0745b343b6"
@@ -14,7 +14,7 @@ resource "aws_launch_template" "MoviesFrontEndTemplate" {
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name = "MoviesFrontEnd"
+      Name = "${var.env}-MoviesFrontEnd"
     }
   }
 
@@ -32,7 +32,7 @@ resource "aws_launch_template" "MoviesFrontEndTemplate" {
 
 
 resource "aws_autoscaling_group" "MoviesFrontEndAS" {
-  name                      = "MoviesFrontEndAS"
+  name                      = "${var.env}-MoviesFrontEndAS"
   max_size                  = 4
   min_size                  = 1
   desired_capacity          = 1
@@ -56,7 +56,7 @@ resource "aws_autoscaling_group" "MoviesFrontEndAS" {
 
 resource "aws_lb" "MoviesLBFrontEnd" {
 
-  name               = "MoviesLBFrontEnd"
+  name               = "${var.env}-MoviesLBFrontEnd"
   internal           = false
   load_balancer_type = "application"
   subnets            = [var.subnet_PubLB1_id, var.subnet_PubLB2_id]
@@ -82,7 +82,7 @@ resource "aws_lb_listener" "FE_Listener" {
 
 resource "aws_lb_target_group" "FE-LB-TG" {
 
-  name = "FE-LB-TG"
+  name = "${var.env}-FE-LB-TG"
 
   port     = 3030
   protocol = "HTTP"

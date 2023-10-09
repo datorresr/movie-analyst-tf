@@ -1,6 +1,6 @@
 resource "aws_security_group" "SG_LB_EXT_FE" {
 
-  name = "SG_LB_EXT_FE"
+  name = "${var.env}_SG_LB_EXT_FE"
   vpc_id      = var.VPCDevOpsRampUp
 
   ingress {
@@ -20,7 +20,7 @@ resource "aws_security_group" "SG_LB_EXT_FE" {
 }
 resource "aws_security_group" "SG_FE_EC2" {
 
-  name = "SG_FE_EC2"
+  name = "${var.env}_SG_FE_EC2"
   vpc_id      = var.VPCDevOpsRampUp
 
   ingress {
@@ -48,7 +48,7 @@ resource "aws_security_group" "SG_FE_EC2" {
 
 resource "aws_security_group" "SG_LB_INT_BE" {
 
-  name = "SG_LB_INT_BE"
+  name = "${var.env}_SG_LB_INT_BE"
   vpc_id      = var.VPCDevOpsRampUp
 
   ingress {
@@ -70,7 +70,7 @@ resource "aws_security_group" "SG_LB_INT_BE" {
 
 resource "aws_security_group" "SG_BE_EC2" {
 
-  name = "SG_BE_EC2"
+  name = "${var.env}_SG_BE_EC2"
   vpc_id      = var.VPCDevOpsRampUp
 
   ingress {
@@ -98,7 +98,7 @@ resource "aws_security_group" "SG_BE_EC2" {
 
 resource "aws_security_group" "SG_RDS" {
 
-  name = "SG_RDS"
+  name = "${var.env}_SG_RDS"
   vpc_id      = var.VPCDevOpsRampUp
 
   ingress {

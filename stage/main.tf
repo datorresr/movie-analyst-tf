@@ -25,15 +25,22 @@ terraform {
   
 }
 
+locals {
+  environment    = "Dev"
+}
+
+
 
 module "stage_network" {
   source = "../modules/network"
   AZ_A = "us-east-1a"
   AZ_B = "us-east-1b"
+  env = local.environment
 
 }
 module "stage_database" {
   source = "../modules/database"
+  env = local.environment
   subnet_PriBE1_id = module.stage_network.subnet_PriBE1_id
   subnet_PriBE2_id = module.stage_network.subnet_PriBE2_id
   SG_RDS_id = module.stage_network.SG_RDS_id
@@ -54,6 +61,7 @@ module "stage_services" {
   SG_FE_EC2_id = module.stage_network.SG_FE_EC2_id
   SG_LB_INT_BE_id = module.stage_network.SG_LB_INT_BE_id
   SG_LB_EXT_FE_id = module.stage_network.SG_LB_EXT_FE_id
+  env = local.environment
 
 }
 

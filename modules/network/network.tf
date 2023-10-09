@@ -1,60 +1,60 @@
 resource "aws_subnet" "PubLB1" {
-  vpc_id     = var.VPCDevOpsRampUp
+  vpc_id            = var.VPCDevOpsRampUp
   availability_zone = var.AZ_A
-  cidr_block = "10.1.1.0/24"
+  cidr_block        = "10.1.1.0/24"
 
   tags = {
-    Name = "PubLB1"
+    Name = "${var.env}-PubLB1"
   }
 }
 
 resource "aws_subnet" "PubLB2" {
-  vpc_id     = var.VPCDevOpsRampUp
+  vpc_id            = var.VPCDevOpsRampUp
   availability_zone = var.AZ_B
-  cidr_block = "10.1.2.0/24"
+  cidr_block        = "10.1.2.0/24"
 
   tags = {
-    Name = "PubLB2"
+    Name = "${var.env}-PubLB2"
   }
 }
 
 resource "aws_subnet" "PriFE1" {
-  vpc_id     = var.VPCDevOpsRampUp
+  vpc_id            = var.VPCDevOpsRampUp
   availability_zone = var.AZ_A
-  cidr_block = "10.1.3.0/24"
+  cidr_block        = "10.1.3.0/24"
 
   tags = {
-    Name = "PriFE1"
+    Name = "${var.env}-PriFE1"
   }
 }
 
 resource "aws_subnet" "PriFE2" {
-  vpc_id     = var.VPCDevOpsRampUp
+  vpc_id            = var.VPCDevOpsRampUp
   availability_zone = var.AZ_B
-  cidr_block = "10.1.4.0/24"
+  cidr_block        = "10.1.4.0/24"
 
   tags = {
-    Name = "PriFE2"
+    Name = "${var.env}-PriFE2"
   }
 }
 
 resource "aws_subnet" "PriBE1" {
-  vpc_id     = var.VPCDevOpsRampUp
+  vpc_id            = var.VPCDevOpsRampUp
   availability_zone = var.AZ_A
-  cidr_block = "10.1.5.0/24"
+  cidr_block        = "10.1.5.0/24"
 
   tags = {
-    Name = "PriBE1"
+    Name = "${var.env}-PriBE1"
   }
 }
 
 resource "aws_subnet" "PriBE2" {
-  vpc_id     = var.VPCDevOpsRampUp
+  vpc_id            = var.VPCDevOpsRampUp
   availability_zone = var.AZ_B
-  cidr_block = "10.1.6.0/24"
+  cidr_block        = "10.1.6.0/24"
 
   tags = {
-    Name = "PriBE2"
+    Name = "${var.env}-PriBE2"
   }
 }
 
@@ -67,7 +67,7 @@ resource "aws_nat_gateway" "NATGW" {
   allocation_id = aws_eip.nat_gateway_ip.id
   subnet_id     = aws_subnet.PubLB1.id
   tags = {
-    Name = "NATGW"
+    Name = "${var.env}-NATGW"
   }
 
 
@@ -80,7 +80,7 @@ resource "aws_nat_gateway" "NATGW" {
 resource "aws_route_table" "PubRTBastion" {
   vpc_id = var.VPCDevOpsRampUp
   tags = {
-    Name = "PubRTBastion"
+    Name = "${var.env}-PubRTBastion"
   }
 }
 
@@ -92,7 +92,7 @@ resource "aws_route_table" "PriRTFE" {
   }
 
   tags = {
-    Name = "PriRTFE"
+    Name = "${var.env}-PriRTFE"
   }
 }
 
@@ -103,7 +103,7 @@ resource "aws_route_table" "PriRTBE" {
     nat_gateway_id = aws_nat_gateway.NATGW.id
   }
   tags = {
-    Name = "PriRTBE"
+    Name = "${var.env}-PriRTBE"
   }
 }
 
@@ -116,7 +116,7 @@ resource "aws_route_table" "PubRT" {
   }
 
   tags = {
-    Name = "PubRT"
+    Name = "${var.env}-PubRT"
   }
 }
 

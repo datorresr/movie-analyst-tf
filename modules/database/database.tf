@@ -1,19 +1,19 @@
 resource "aws_db_subnet_group" "movies_RDS_SNG" {
-  name       = "main"
+  name       = "${var.env}-main"
   subnet_ids = [var.subnet_PriBE1_id, var.subnet_PriBE2_id]
 }
 
 resource "aws_db_instance" "MoviesDB" {
   engine               = "mysql"
-  identifier           = "moviesdb"
+  identifier           = "${var.env}-moviesdb"
   allocated_storage    =  20
   engine_version       = "8.0.33"
   instance_class       = "db.t3.micro"
   username             = "applicationuser"
   password             = "applicationuser"
   parameter_group_name = "default.mysql8.0"
-  ca_cert_identifier = "rds-ca-rsa2048-g1"
-  db_subnet_group_name      = "${aws_db_subnet_group.movies_RDS_SNG.id}"
+  ca_cert_identifier    = "rds-ca-rsa2048-g1"
+  db_subnet_group_name  = "${aws_db_subnet_group.movies_RDS_SNG.id}"
   availability_zone = "us-east-1a"
   db_name = "movie_db"
   vpc_security_group_ids = ["${var.SG_RDS_id}"]

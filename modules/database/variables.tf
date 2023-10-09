@@ -1,3 +1,7 @@
+variable "env" {
+  description = "env"
+  type        = string
+}
 variable "VPCDevOpsRampUp" {
   description = "ID de la VPC VPCDevOpsRampUp"
   type        = string

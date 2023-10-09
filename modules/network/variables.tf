@@ -26,6 +26,11 @@ variable "AZ_B" {
   type        = string
 }
 
+variable "env" {
+  description = "env"
+  type        = string
+}
+
 
 
 
