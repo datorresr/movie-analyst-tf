@@ -4,15 +4,15 @@ provider "aws" {
 
 
 
-module "services" {
+module "stage_services" {
   source = "../modules/services"
 }
 
-module "network" {
+module "stage_network" {
   source = "../modules/network"
 }
 
-module "database" {
+module "stage_database" {
   source = "../modules/database"
 }
 
