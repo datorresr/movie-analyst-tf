@@ -2,7 +2,7 @@ resource "aws_launch_template" "MoviesFrontEndTemplate" {
   name = "${var.env}-MoviesFrontEndTemplate"
 
   iam_instance_profile {
-    name = "${var.env}-MySessionManagerRole"
+    name = "MySessionManagerRole"
   }
 
   image_id = "ami-0b5e5db0745b343b6"
