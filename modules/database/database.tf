@@ -1,6 +1,6 @@
 resource "aws_db_subnet_group" "movies_RDS_SNG" {
   name       = "main"
-  subnet_ids = [module.stage.stage_network.subnet_PriBE1_id, module.stage.stage_network.subnet_PriBE2_id]
+  subnet_ids = [var.subnet_PriBE1_id, var.subnet_PriBE2_id]
 }
 
 resource "aws_db_instance" "MoviesDB" {

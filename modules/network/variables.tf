@@ -16,6 +16,16 @@ variable "IGW" {
   default     = "igw-06bc140a6a7612779" 
 }
 
+variable "AZ_A" {
+  description = "AZ_A"
+  type        = string
+}
+
+variable "AZ_B" {
+  description = "AZ_B"
+  type        = string
+}
+
 
 
 

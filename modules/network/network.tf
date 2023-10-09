@@ -1,6 +1,6 @@
 resource "aws_subnet" "PubLB1" {
   vpc_id     = var.VPCDevOpsRampUp
-  availability_zone = "us-east-1a"
+  availability_zone = var.AZ_A
   cidr_block = "10.1.1.0/24"
 
   tags = {
@@ -10,7 +10,7 @@ resource "aws_subnet" "PubLB1" {
 
 resource "aws_subnet" "PubLB2" {
   vpc_id     = var.VPCDevOpsRampUp
-  availability_zone = "us-east-1b"
+  availability_zone = var.AZ_B
   cidr_block = "10.1.2.0/24"
 
   tags = {
@@ -20,7 +20,7 @@ resource "aws_subnet" "PubLB2" {
 
 resource "aws_subnet" "PriFE1" {
   vpc_id     = var.VPCDevOpsRampUp
-  availability_zone = "us-east-1a"
+  availability_zone = var.AZ_A
   cidr_block = "10.1.3.0/24"
 
   tags = {
@@ -30,7 +30,7 @@ resource "aws_subnet" "PriFE1" {
 
 resource "aws_subnet" "PriFE2" {
   vpc_id     = var.VPCDevOpsRampUp
-  availability_zone = "us-east-1b"
+  availability_zone = var.AZ_B
   cidr_block = "10.1.4.0/24"
 
   tags = {
@@ -40,7 +40,7 @@ resource "aws_subnet" "PriFE2" {
 
 resource "aws_subnet" "PriBE1" {
   vpc_id     = var.VPCDevOpsRampUp
-  availability_zone = "us-east-1a"
+  availability_zone = var.AZ_A
   cidr_block = "10.1.5.0/24"
 
   tags = {
@@ -50,7 +50,7 @@ resource "aws_subnet" "PriBE1" {
 
 resource "aws_subnet" "PriBE2" {
   vpc_id     = var.VPCDevOpsRampUp
-  availability_zone = "us-east-1b"
+  availability_zone = var.AZ_B
   cidr_block = "10.1.6.0/24"
 
   tags = {
