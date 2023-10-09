@@ -31,6 +31,32 @@ variable "env" {
   type        = string
 }
 
+variable "net1" {
+  description = "net1"
+  type        = string
+}
+
+variable "net2" {
+  description = "net2"
+  type        = string
+}
+variable "net3" {
+  description = "net3"
+  type        = string
+}
+variable "net4" {
+  description = "net4"
+  type        = string
+}
+variable "net5" {
+  description = "net5"
+  type        = string
+}
+variable "net6" {
+  description = "net6"
+  type        = string
+}
+
 
 
 

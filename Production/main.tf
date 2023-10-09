@@ -27,6 +27,12 @@ terraform {
 
 locals {
   environment    = "prod"
+  net1 = "11"
+  net2 = "12"
+  net3 = "13"
+  net4 = "14"
+  net5 = "15"
+  net6 = "16"
 }
 
 
@@ -36,6 +42,14 @@ module "prod_network" {
   AZ_A = "us-east-1a"
   AZ_B = "us-east-1b"
   env = local.environment
+  net1 = local.net1
+  net2 = local.net2
+  net3 = local.net3
+  net4 = local.net4
+  net5 = local.net5
+  net6 = local.net6
+
+
 
 }
 module "prod_database" {

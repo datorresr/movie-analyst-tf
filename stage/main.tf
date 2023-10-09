@@ -27,6 +27,12 @@ terraform {
 
 locals {
   environment    = "dev"
+  net1 = "1"
+  net2 = "2"
+  net3 = "3"
+  net4 = "4"
+  net5 = "5"
+  net6 = "6"
 }
 
 
@@ -36,6 +42,12 @@ module "stage_network" {
   AZ_A = "us-east-1a"
   AZ_B = "us-east-1b"
   env = local.environment
+  net1 = local.net1
+  net2 = local.net2
+  net3 = local.net3
+  net4 = local.net4
+  net5 = local.net5
+  net6 = local.net6
 
 }
 module "stage_database" {
