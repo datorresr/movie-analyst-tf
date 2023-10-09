@@ -6,7 +6,14 @@ provider "aws" {
 
 module "services" {
   source = "../modules/services"
+}
 
+module "network" {
+  source = "../modules/network"
+}
+
+module "database" {
+  source = "../modules/database"
 }
 
 
