@@ -26,7 +26,7 @@ terraform {
 }
 
 locals {
-  environment    = "Dev"
+  environment    = "dev"
 }
 
 
