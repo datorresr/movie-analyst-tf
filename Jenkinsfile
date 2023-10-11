@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'githubcred', url: 'https://github.com/datorresr/movie-analyst-tf'
+                git credentialsId: 'githubcred', url: 'https://github.com/datorresr/movie-analyst-tf', branch: 'modulesbranch'
             }
         }
         stage('Terraform init') {
