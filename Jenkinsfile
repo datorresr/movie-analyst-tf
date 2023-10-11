@@ -20,6 +20,7 @@ pipeline {
         stage('Terraform action') {
             steps {
                 dir('/var/lib/jenkins/workspace/MoviesTF/stage') {
+                    sh 'export TF_LOG=DEBUG'
                     sh 'terraform ${action} --auto-approve -lock=false'
                 }
 
