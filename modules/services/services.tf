@@ -37,8 +37,8 @@ resource "aws_ecs_task_definition" "task_definition" {
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = "arn:aws:iam::700029235138:role/ecsTaskExecutionRole"
 
-  cpu = "256"
-  memory = "512"
+  cpu = "1024"
+  memory = "2048"
 
   container_definitions = <<DEFINITION
 [
