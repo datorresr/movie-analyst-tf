@@ -35,7 +35,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   family                   = "${var.env}-${var.serv}-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  execution_role_arn       = "ecsTaskExecutionRole"
+  execution_role_arn       = "arn:aws:iam::700029235138:role/ecsTaskExecutionRole"
 
   container_definitions = <<DEFINITION
 [
