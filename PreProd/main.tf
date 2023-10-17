@@ -72,18 +72,18 @@ module "preprod_BE" {
   lb_port = "3030"
   listener_port = "3030"
 
-  subnet_ECS1_id = module.stage_network.subnet_PriBE1_id
-  subnet_ECS2_id = module.stage_network.subnet_PriBE2_id
-  subnet_LB1_id = module.stage_network.subnet_PriBE1_id
-  subnet_LB2_id = module.stage_network.subnet_PriBE2_id
-  SG_ECS_id = module.stage_network.SG_BE_EC2_id
-  SG_LB_id = module.stage_network.SG_LB_INT_BE_id
+  subnet_ECS1_id = module.preprod_network.subnet_PriBE1_id
+  subnet_ECS2_id = module.preprod_network.subnet_PriBE2_id
+  subnet_LB1_id = module.preprod_network.subnet_PriBE1_id
+  subnet_LB2_id = module.preprod_network.subnet_PriBE2_id
+  SG_ECS_id = module.preprod_network.SG_BE_EC2_id
+  SG_LB_id = module.preprod_network.SG_LB_INT_BE_id
 
   load_balancer_ip = ""
 
-  moviesDB_address = module.stage_database.moviesDB_address
-  moviesDB_username = module.stage_database.moviesDB_username
-  moviesDB_password = module.stage_database.moviesDB_password
+  moviesDB_address = module.preprod_database.moviesDB_address
+  moviesDB_username = module.preprod_database.moviesDB_username
+  moviesDB_password = module.preprod_database.moviesDB_password
 
 
 
@@ -101,18 +101,18 @@ module "preprod_FE" {
   lb_port = "80"
   listener_port = "3000"
 
-  subnet_ECS1_id = module.stage_network.subnet_PriBE1_id
-  subnet_ECS2_id = module.stage_network.subnet_PriBE2_id
-  subnet_LB1_id = module.stage_network.subnet_PubLB1_id
-  subnet_LB2_id = module.stage_network.subnet_PubLB2_id
-  SG_ECS_id = module.stage_network.SG_FE_EC2_id
-  SG_LB_id = module.stage_network.SG_LB_EXT_FE_id
+  subnet_ECS1_id = module.preprod_network.subnet_PriBE1_id
+  subnet_ECS2_id = module.preprod_network.subnet_PriBE2_id
+  subnet_LB1_id = module.preprod_network.subnet_PubLB1_id
+  subnet_LB2_id = module.preprod_network.subnet_PubLB2_id
+  SG_ECS_id = module.preprod_network.SG_FE_EC2_id
+  SG_LB_id = module.preprod_network.SG_LB_EXT_FE_id
 
   load_balancer_ip = module.preprod_BE.load_balancer_ip
   
-  moviesDB_address = module.stage_database.moviesDB_address
-  moviesDB_username = module.stage_database.moviesDB_username
-  moviesDB_password = module.stage_database.moviesDB_password
+  moviesDB_address = module.preprod_database.moviesDB_address
+  moviesDB_username = module.preprod_database.moviesDB_username
+  moviesDB_password = module.preprod_database.moviesDB_password
 
 }
 
