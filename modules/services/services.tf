@@ -37,6 +37,9 @@ resource "aws_ecs_task_definition" "task_definition" {
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = "arn:aws:iam::700029235138:role/ecsTaskExecutionRole"
 
+  cpu = "256"
+  memory = "512"
+
   container_definitions = <<DEFINITION
 [
   {
@@ -77,6 +80,8 @@ resource "aws_ecs_service" "ecs_service" {
   task_definition = aws_ecs_task_definition.task_definition.arn
   desired_count   = 3
   launch_type     = "FARGATE"
+
+
 
   network_configuration {
     subnets = [var.subnet_ECS1_id, var.subnet_ECS2_id] 
