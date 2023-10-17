@@ -15,7 +15,7 @@ terraform {
   backend "s3" {
     # Replace this with your bucket name!
     bucket         = "terraform-state-movieapp"
-    key            = "prod/terraform.tfstate"
+    key            = "ECS/Prod/terraform.tfstate"
     region         = "us-east-1"
 
     # Replace this with your DynamoDB table name!
@@ -27,12 +27,12 @@ terraform {
 
 locals {
   environment    = "prod"
-  net1 = "11"
-  net2 = "12"
-  net3 = "13"
-  net4 = "14"
-  net5 = "15"
-  net6 = "16"
+  net1 = "31"
+  net2 = "32"
+  net3 = "33"
+  net4 = "34"
+  net5 = "35"
+  net6 = "36"
 }
 
 
