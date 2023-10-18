@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "task_definition" {
     "environment": [
       {"name": "DB_HOST", "value": "${var.moviesDB_address}"},
       {"name": "DB_USER", "value": "${var.moviesDB_username}"},
-      {"name": "DB_PASS", "value": "${var.moviesDB_password}L"},
+      {"name": "DB_PASS", "value": "${var.moviesDB_password}"},
       {"name": "BACK_HOST", "value": "${var.load_balancer_ip}"}
     ],
     "portMappings": [
