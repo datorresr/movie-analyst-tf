@@ -69,8 +69,8 @@ module "preprod_BE" {
   serv = "BE"
   container = "700029235138.dkr.ecr.us-east-1.amazonaws.com/movies-api:latest"
   isInternal = true
-  lb_port = "3030"
-  listener_port = "3030"
+  lb_port = "3000"
+  listener_port = "3000"
 
   subnet_ECS1_id = module.preprod_network.subnet_PriBE1_id
   subnet_ECS2_id = module.preprod_network.subnet_PriBE2_id
@@ -99,7 +99,7 @@ module "preprod_FE" {
   container = "700029235138.dkr.ecr.us-east-1.amazonaws.com/movies-ui:latest"
   isInternal = false 
   lb_port = "80"
-  listener_port = "3000"
+  listener_port = "3030"
 
   subnet_ECS1_id = module.preprod_network.subnet_PriBE1_id
   subnet_ECS2_id = module.preprod_network.subnet_PriBE2_id
