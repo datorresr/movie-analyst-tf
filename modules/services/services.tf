@@ -12,7 +12,7 @@ resource "aws_lb" "ecs-alb" {
 
 resource "aws_lb_target_group" "ecs_target_group" {
   name     = "${var.env}-${var.serv}-target-group"
-  port     = var.lb_port
+  port     = var.listener_port
   protocol = "HTTP"
   vpc_id   = var.VPCDevOpsRampUp # Reemplaza con el ID de tu VPC
   target_type = "ip"
@@ -20,7 +20,7 @@ resource "aws_lb_target_group" "ecs_target_group" {
 
 resource "aws_lb_listener" "ecs_lb_listener" {
   load_balancer_arn = aws_lb.ecs-alb.id
-  port              = var.listener_port
+  port              = var.lb_port
   protocol          = "HTTP"
 
   default_action {
