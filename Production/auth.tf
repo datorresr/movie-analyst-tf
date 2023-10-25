@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "kubectl_assume_role_policy" {
     ]
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::700029235138:root", "arn:aws:iam::700029235138:user/cloudgoat", "arn:aws:iam::700029235138:user/workshop"]
+      identifiers = ["arn:aws:iam::700029235138:root", "arn:aws:iam::700029235138:user/cloudgoat", "arn:aws:iam::700029235138:user/kubeuser"]
     }
   }
 }
