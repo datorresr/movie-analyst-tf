@@ -34,7 +34,7 @@ resource "kubernetes_config_map" "my-config-map" {
     namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
   data = {
-    "kubeconfig" = "${file(".kube/config")}"
+    "kubeconfig" = "${file("${path.module}/.kube/config")}"
   }
 }
 
