@@ -23,3 +23,8 @@ output "cluster_name" {
   //value = kubernetes_service.frontend_service.status[0].load_balancer.ingress[0].ip
 //  value = "${kubernetes_service.frontend_service.asdf}"
 //}
+
+output "frontend_service_hostname" {
+  description = "Hostname of the frontend service"
+  value       = kubernetes_service.frontend_service.status[0].load_balancer[0].ingress[0].hostname
+}
