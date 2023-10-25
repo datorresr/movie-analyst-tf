@@ -27,7 +27,7 @@ terraform {
 
 locals {
   environment    = "dev"
-  servicio = "ECS"
+  servicio = "ecs"
   service = "FE"
   net1 = "21"
   net2 = "22"
@@ -51,7 +51,7 @@ module "preprod_network" {
   net4 = local.net4
   net5 = local.net5
   net6 = local.net6
-  servicio = "ECS"
+  servicio = "ecs"
 
 }
 module "preprod_database" {
@@ -60,7 +60,7 @@ module "preprod_database" {
   subnet_PriBE1_id = module.preprod_network.subnet_PriBE1_id
   subnet_PriBE2_id = module.preprod_network.subnet_PriBE2_id
   SG_RDS_id = module.preprod_network.SG_RDS_id
-  servicio = "ECS"
+  servicio = "ecs"
 
 }
 
@@ -74,7 +74,7 @@ module "preprod_BE" {
   isInternal = true
   lb_port = "3000"
   listener_port = "3000"
-  servicio = "ECS"
+  servicio = "ecs"
 
   subnet_ECS1_id = module.preprod_network.subnet_PriBE1_id
   subnet_ECS2_id = module.preprod_network.subnet_PriBE2_id
@@ -117,7 +117,7 @@ module "preprod_FE" {
   moviesDB_address = module.preprod_database.moviesDB_address
   moviesDB_username = module.preprod_database.moviesDB_username
   moviesDB_password = module.preprod_database.moviesDB_password
-  servicio = "ECS"
+  servicio = "ecs"
 
 }
 
