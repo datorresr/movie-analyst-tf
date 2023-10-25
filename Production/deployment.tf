@@ -9,7 +9,7 @@
 resource "kubernetes_service_account" "my-service-account" {
   metadata {
     name = "my-service-account"
-//    namespace = kubernetes_namespace.moviesapp.metadata[0].name
+    namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
 }
 
@@ -21,12 +21,12 @@ resource "kubernetes_role_binding" "my-cluster-admin-rolebinding" {
   }
   metadata {
     name      = "k8srolebinding"
-//    namespace = kubernetes_namespace.moviesapp.metadata[0].name
+    namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
   subject {
     kind = "ServiceAccount"
     name = "my-service-account"
-//    namespace = kubernetes_namespace.moviesapp.metadata[0].name
+    namespace = kubernetes_namespace.moviesapp.metadata[0].name
 
   }
 }
@@ -34,7 +34,7 @@ resource "kubernetes_role_binding" "my-cluster-admin-rolebinding" {
 resource "kubernetes_config_map" "my-config-map" {
   metadata {
     name = "my-config-map"
-//    namespace = kubernetes_namespace.moviesapp.metadata[0].name
+    namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
   data = {
     "kubeconfig" = "${file("~/.kube/config")}"
@@ -44,7 +44,7 @@ resource "kubernetes_config_map" "my-config-map" {
 resource "kubernetes_deployment" "backend" {
   metadata {
     name = "backend-deployment"
-    //namespace = kubernetes_namespace.moviesapp.metadata[0].name
+    namespace = kubernetes_namespace.moviesapp.metadata[0].name
     labels = {
       app = "backend"
     }
@@ -90,7 +90,7 @@ resource "kubernetes_deployment" "backend" {
 
 resource "kubernetes_deployment" "frontend" {
   metadata {
-    //namespace = kubernetes_namespace.moviesapp.metadata[0].name
+    namespace = kubernetes_namespace.moviesapp.metadata[0].name
     name = "frontend-deployment"
     labels = {
       app = "frontend"
