@@ -24,3 +24,33 @@ module "vpc" {
     "kubernetes.io/role/internal-elb"             = 1
   }
 }
+
+data "aws_vpc" "vpc1" {
+  id = var.VPCDevOpsRampUp
+}
+
+# Crear una conexión de peering desde VPC1 a VPC2
+resource "aws_vpc_peering_connection" "peer1_to_peer2" {
+  peer_vpc_id = module.vpc.vpc_id
+  vpc_id      = var.VPCDevOpsRampUp
+}
+
+# Aceptar la conexión de peering en VPC2
+resource "aws_vpc_peering_connection_accepter" "peer_accepter" {
+  provider                  = aws.vpc
+  vpc_peering_connection_id  = aws_vpc_peering_connection.peer1_to_peer2.id
+}
+
+# Establecer rutas de VPC1 a VPC2
+resource "aws_route" "route_to_peer2" {
+  route_table_id         = data.aws_vpc.vpc1.main_route_table_id
+  destination_cidr_block = "10.20.0.0/16"
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer1_to_peer2.id
+}
+
+# Establecer rutas de VPC2 a VPC1
+resource "aws_route" "route_to_peer1" {
+  route_table_id         = module.vpc.main_route_table_id
+  destination_cidr_block = "10.0.0.0/16"
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer1_to_peer2.id
+}
