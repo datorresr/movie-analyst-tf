@@ -5,7 +5,9 @@ resource "kubernetes_service" "backend_service" {
   }
 
   spec {
+    
     selector = {
+      service_account_name = "my-service-account"
       app = "backend"
     }
 

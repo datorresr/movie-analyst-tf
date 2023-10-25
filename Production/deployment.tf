@@ -6,40 +6,40 @@
 
 //}
 
-//resource "kubernetes_service_account" "my-service-account" {
-//  metadata {
-//    name = "my-service-account"
+resource "kubernetes_service_account" "my-service-account" {
+  metadata {
+    name = "my-service-account"
 //    namespace = kubernetes_namespace.moviesapp.metadata[0].name
-//  }
-//}
+  }
+}
 
-//resource "kubernetes_role_binding" "my-cluster-admin-rolebinding" {
-//  role_ref {
-//    api_group = "rbac.authorization.k8s.io"
-//    kind = "ClusterRole"
-//    name = "cluster-admin"
-//  }
-//  metadata {
- //   name      = "k8srolebinding"
-//   namespace = kubernetes_namespace.moviesapp.metadata[0].name
- // }
-//  subject {
-//    kind = "ServiceAccount"
-//    name = "my-service-account"
+resource "kubernetes_role_binding" "my-cluster-admin-rolebinding" {
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind = "ClusterRole"
+    name = "cluster-admin"
+  }
+  metadata {
+    name      = "k8srolebinding"
 //    namespace = kubernetes_namespace.moviesapp.metadata[0].name
-//
-//  }
-//}
+  }
+  subject {
+    kind = "ServiceAccount"
+    name = "my-service-account"
+//    namespace = kubernetes_namespace.moviesapp.metadata[0].name
 
-//resource "kubernetes_config_map" "my-config-map" {
-//  metadata {
-//    name = "my-config-map"
+  }
+}
+
+resource "kubernetes_config_map" "my-config-map" {
+  metadata {
+    name = "my-config-map"
 //    namespace = kubernetes_namespace.moviesapp.metadata[0].name
-//  }
-//  data = {
-//    "kubeconfig" = "${file("~/.kube/config")}"
-//  }
-//}
+  }
+  data = {
+    "kubeconfig" = "${file("~/.kube/config")}"
+  }
+}
 
 resource "kubernetes_deployment" "backend" {
   metadata {
@@ -64,7 +64,7 @@ resource "kubernetes_deployment" "backend" {
         }
       }
       spec {
-        //service_account_name = "my-service-account"
+        service_account_name = "my-service-account"
         container {
           name = "movies-api"
           image = "700029235138.dkr.ecr.us-east-1.amazonaws.com/movies-api:latest"
@@ -111,7 +111,7 @@ resource "kubernetes_deployment" "frontend" {
         }
       }
       spec {
-        //service_account_name = "my-service-account"
+        service_account_name = "my-service-account"
         container {
           name = "movies-ui"
           image = "700029235138.dkr.ecr.us-east-1.amazonaws.com/movies-ui:latest"
