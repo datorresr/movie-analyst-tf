@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Terraform action') {
             steps {
-                dir('/var/lib/jenkins/workspace/Movies_AWS_ECS_Dev_Inf/stage') {
+                dir('/var/lib/jenkins/workspace/Movies_AWS_ECS_Dev_Inf/PreProd') {
                     sh 'export TF_LOG=DEBUG'
                     sh 'terraform ${action} --auto-approve -lock=false'
                 }
