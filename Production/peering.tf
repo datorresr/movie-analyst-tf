@@ -1,3 +1,6 @@
+provider "aws" {
+  region = var.region
+}
 data "aws_vpc" "vpc1" {
   id = var.VPCDevOpsRampUp
 }
