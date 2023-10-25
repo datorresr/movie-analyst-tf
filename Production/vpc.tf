@@ -37,7 +37,7 @@ resource "aws_vpc_peering_connection" "peer1_to_peer2" {
 
 # Aceptar la conexión de peering en VPC2
 resource "aws_vpc_peering_connection_accepter" "peer_accepter" {
-  provider                  = aws.vpc
+  provider                  = aws.peer
   vpc_peering_connection_id  = aws_vpc_peering_connection.peer1_to_peer2.id
 }
 

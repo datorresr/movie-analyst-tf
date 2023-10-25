@@ -4,6 +4,7 @@ provider "kubernetes" {
 }
 
 provider "aws" {
+  alias  = "peer"
   region = var.region
 }
 
