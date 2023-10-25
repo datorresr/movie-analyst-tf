@@ -33,12 +33,7 @@ data "aws_vpc" "vpc1" {
 resource "aws_vpc_peering_connection" "peer1_to_peer2" {
   peer_vpc_id = module.vpc.vpc_id
   vpc_id      = var.VPCDevOpsRampUp
-}
-
-# Aceptar la conexión de peering en VPC2
-resource "aws_vpc_peering_connection_accepter" "peer_accepter" {
-  provider                  = aws.peer
-  vpc_peering_connection_id  = aws_vpc_peering_connection.peer1_to_peer2.id
+  auto_accept = true
 }
 
 # Establecer rutas de VPC1 a VPC2
