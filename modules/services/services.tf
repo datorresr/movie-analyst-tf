@@ -1,7 +1,7 @@
 //LOAD BALANCER DEFINITION
 
 resource "aws_lb" "ecs-alb" {
-  name               = "${var.env}-${var.serv}-alb"
+  name               = "${var.env}-${var.serv}-${var.servicio}-alb"
   internal           = var.isInternal
   load_balancer_type = "application"
   subnets            = [var.subnet_LB1_id, var.subnet_LB2_id]
@@ -11,7 +11,7 @@ resource "aws_lb" "ecs-alb" {
 }
 
 resource "aws_lb_target_group" "ecs_target_group" {
-  name     = "${var.env}-${var.serv}-target-group"
+  name     = "${var.env}-${var.serv}-${var.servicio}-target-group"
   port     = var.listener_port
   protocol = "HTTP"
   vpc_id   = var.VPCDevOpsRampUp # Reemplaza con el ID de tu VPC
@@ -32,7 +32,7 @@ resource "aws_lb_listener" "ecs_lb_listener" {
 //TASK DEFINITION
 
 resource "aws_ecs_task_definition" "task_definition" {
-  family                   = "${var.env}-${var.serv}-task"
+  family                   = "${var.env}-${var.serv}-${var.servicio}-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = "arn:aws:iam::700029235138:role/ecsTaskExecutionRole"
@@ -46,7 +46,7 @@ resource "aws_ecs_task_definition" "task_definition" {
     "image": "${var.container}",
     "cpu": 1024,
     "memory": 2048,
-    "name": "${var.env}-${var.serv}-container",
+    "name": "${var.env}-${var.serv}-${var.servicio}-container",
     "networkMode": "awsvpc",
     "environment": [
       {"name": "DB_HOST", "value": "${var.moviesDB_address}"},
@@ -69,13 +69,13 @@ DEFINITION
 //CLUSTER DEFINITION
 
 resource "aws_ecs_cluster" "ecs_cluster" {
-  name = "${var.env}-${var.serv}-ECS-Cluster"
+  name = "${var.env}-${var.serv}-${var.servicio}-ECS-Cluster"
 }
 
 //ECS SERVICE DEFINITION
 
 resource "aws_ecs_service" "ecs_service" {
-  name            = "${var.env}-${var.serv}-service"
+  name            = "${var.env}-${var.serv}-${var.servicio}-service"
   cluster         = aws_ecs_cluster.ecs_cluster.id
   task_definition = aws_ecs_task_definition.task_definition.arn
   desired_count   = 3
@@ -90,7 +90,7 @@ resource "aws_ecs_service" "ecs_service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.ecs_target_group.arn
-    container_name   = "${var.env}-${var.serv}-container"
+    container_name   = "${var.env}-${var.serv}-${var.servicio}-container"
     container_port   = var.listener_port
   }
 

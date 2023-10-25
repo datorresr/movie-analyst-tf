@@ -4,7 +4,7 @@ resource "aws_subnet" "PubLB1" {
   cidr_block        = "10.1.${var.net1}.0/24"
 
   tags = {
-    Name = "${var.env}-PubLB1"
+    Name = "${var.env}-${var.servicio}-PubLB1"
   }
 }
 
@@ -24,7 +24,7 @@ resource "aws_subnet" "PriFE1" {
   cidr_block        = "10.1.${var.net3}.0/24"
 
   tags = {
-    Name = "${var.env}-PriFE1"
+    Name = "${var.env}-${var.servicio}-PriFE1"
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_subnet" "PriFE2" {
   cidr_block        = "10.1.${var.net4}.0/24"
 
   tags = {
-    Name = "${var.env}-PriFE2"
+    Name = "${var.env}-${var.servicio}-PriFE2"
   }
 }
 
@@ -44,7 +44,7 @@ resource "aws_subnet" "PriBE1" {
   cidr_block        = "10.1.${var.net5}.0/24"
 
   tags = {
-    Name = "${var.env}-PriBE1"
+    Name = "${var.env}-${var.servicio}-PriBE1"
   }
 }
 
@@ -54,7 +54,7 @@ resource "aws_subnet" "PriBE2" {
   cidr_block        = "10.1.${var.net6}.0/24"
 
   tags = {
-    Name = "${var.env}-PriBE2"
+    Name = "${var.env}-${var.servicio}-PriBE2"
   }
 }
 
@@ -67,7 +67,7 @@ resource "aws_nat_gateway" "NATGW" {
   allocation_id = aws_eip.nat_gateway_ip.id
   subnet_id     = aws_subnet.PubLB1.id
   tags = {
-    Name = "${var.env}-NATGW"
+    Name = "${var.env}-${var.servicio}-NATGW"
   }
 
 
@@ -80,7 +80,7 @@ resource "aws_nat_gateway" "NATGW" {
 resource "aws_route_table" "PubRTBastion" {
   vpc_id = var.VPCDevOpsRampUp
   tags = {
-    Name = "${var.env}-PubRTBastion"
+    Name = "${var.env}-${var.servicio}-PubRTBastion"
   }
 }
 
@@ -92,7 +92,7 @@ resource "aws_route_table" "PriRTFE" {
   }
 
   tags = {
-    Name = "${var.env}-PriRTFE"
+    Name = "${var.env}-${var.servicio}-PriRTFE"
   }
 }
 
@@ -103,7 +103,7 @@ resource "aws_route_table" "PriRTBE" {
     nat_gateway_id = aws_nat_gateway.NATGW.id
   }
   tags = {
-    Name = "${var.env}-PriRTBE"
+    Name = "${var.env}-${var.servicio}-PriRTBE"
   }
 }
 
@@ -116,7 +116,7 @@ resource "aws_route_table" "PubRT" {
   }
 
   tags = {
-    Name = "${var.env}-PubRT"
+    Name = "${var.env}-${var.servicio}-PubRT"
   }
 }
 

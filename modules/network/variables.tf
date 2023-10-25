@@ -31,6 +31,11 @@ variable "env" {
   type        = string
 }
 
+variable "servicio" {
+  description = "servicio"
+  type        = string
+}
+
 variable "net1" {
   description = "net1"
   type        = string

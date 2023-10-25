@@ -1,11 +1,11 @@
 resource "aws_db_subnet_group" "movies_RDS_SNG" {
-  name       = "${var.env}-main"
+  name       = "${var.env}-${var.servicio}-main"
   subnet_ids = [var.subnet_PriBE1_id, var.subnet_PriBE2_id]
 }
 
 resource "aws_db_instance" "MoviesDB" {
   engine               = "mysql"
-  identifier           = "${var.env}-moviesdb"
+  identifier           = "${var.env}-${var.servicio}-moviesdb"
   allocated_storage    =  20
   engine_version       = "8.0.33"
   instance_class       = "db.t3.micro"

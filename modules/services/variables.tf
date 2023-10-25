@@ -102,7 +102,10 @@ variable "load_balancer_ip" {
   type        = string
 }
 
-
+variable "servicio" {
+  description = "servicio"
+  type        = string
+}
 
 
 

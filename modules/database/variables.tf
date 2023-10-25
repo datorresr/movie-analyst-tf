@@ -22,4 +22,8 @@ variable "SG_RDS_id" {
   description = "SG_RDS_id"
   type        = string
 }
+variable "servicio" {
+  description = "servicio"
+  type        = string
+}
 
