@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "kubectl_assume_role_policy" {
     ]
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::700029235138:root", "arn:aws:organizations::700029235138:account/o-iboot0zbbz/700029235138"]
+      identifiers = ["arn:aws:iam::700029235138:root", "arn:aws:organizations::700029235138:account/o-iboot0zbbz/700029235138", "arn:aws:iam::700029235138:instance-profile/AdminAccess"]
     }
   }
 }
