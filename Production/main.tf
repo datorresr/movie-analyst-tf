@@ -26,9 +26,9 @@ resource "random_string" "suffix" {
 resource "kubernetes_config_map" "aws_auth_configmap" {
   metadata {
     name      = "aws-auth"
-    namespace = "kube-system"
+    namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
-  data {
+  data = {
     mapRoles = <<YAML
   - rolearn: ${module.eks.eks_managed_node_groups}
     username: system:node:{{EC2PrivateDNSName}}
