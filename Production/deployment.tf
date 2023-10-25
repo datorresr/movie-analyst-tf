@@ -7,6 +7,7 @@ resource "kubernetes_namespace" "moviesapp" {
 resource "kubernetes_service_account" "my-service-account" {
   metadata {
     name = "my-service-account"
+    namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
 }
 
@@ -31,6 +32,7 @@ resource "kubernetes_role_binding" "my-cluster-admin-rolebinding" {
 resource "kubernetes_config_map" "my-config-map" {
   metadata {
     name = "my-config-map"
+    namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
   data = {
     "kubeconfig" = "${file("~/.kube/config")}"
