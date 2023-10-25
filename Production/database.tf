@@ -1,5 +1,5 @@
-resource "aws_db_subnet_group" "movies_RDS_SNG" {
-  name       = "movies_RDS_SNG"
+resource "aws_db_subnet_group" "movies_rds_sng" {
+  name       = "movies_rds_sng"
   subnet_ids = module.vpc.private_subnets
 }
 
@@ -35,7 +35,7 @@ resource "aws_db_instance" "MoviesDB" {
   password             = "applicationuser"
   parameter_group_name = "default.mysql8.0"
   ca_cert_identifier = "rds-ca-rsa2048-g1"
-  db_subnet_group_name      = "${aws_db_subnet_group.movies_RDS_SNG.id}"
+  db_subnet_group_name      = "${aws_db_subnet_group.movies_rds_sng.id}"
   availability_zone = "us-east-1a"
   db_name = "movie_db"
   vpc_security_group_ids = [aws_security_group.SG_RDS ]
