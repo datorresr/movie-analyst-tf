@@ -30,7 +30,7 @@ resource "kubernetes_config_map" "aws_auth_configmap" {
   }
   data = {
     mapRoles = <<YAML
-  - rolearn: ${module.eks.eks_managed_node_groups}
+  - rolearn: ${module.eks.eks_managed_node_groups.roleArn}
     username: system:node:{{EC2PrivateDNSName}}
     groups:
       - system:bootstrappers
