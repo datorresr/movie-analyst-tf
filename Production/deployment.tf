@@ -29,12 +29,12 @@ resource "kubernetes_role_binding" "my-cluster-admin-rolebinding" {
 }
 
 resource "kubernetes_config_map" "my-config-map" {
-    metadata {
+  metadata {
     name = "my-config-map"
     namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
   data = {
-    "kubeconfig" = "${file("${path.module}/.kube/config")}"
+    "kubeconfig" = "${file("~/.kube/config")}"
   }
 }
 
