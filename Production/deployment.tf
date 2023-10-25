@@ -10,7 +10,6 @@ resource "kubernetes_service_account" "my-service-account" {
   depends_on = [ kubernetes_role_binding.my-cluster-admin-rolebinding ]
   metadata {
     name = "my-service-account"
-    namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
 }
 
@@ -22,7 +21,6 @@ resource "kubernetes_role_binding" "my-cluster-admin-rolebinding" {
   }
   metadata {
     name      = "k8srolebinding"
-    namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
   subject {
     kind = "ServiceAccount"
@@ -34,7 +32,6 @@ resource "kubernetes_role_binding" "my-cluster-admin-rolebinding" {
 resource "kubernetes_config_map" "my-config-map" {
   metadata {
     name = "my-config-map"
-    namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
   data = {
     "kubeconfig" = "${file("~/.kube/config")}"
