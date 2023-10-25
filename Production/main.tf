@@ -1,12 +1,10 @@
 provider "kubernetes" {
-  config_path = "~/.kube/config"
+  //config_path = "~/.kube/config"
+  //load_config_file       = false
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    args        = ["eks", "get-token", "--cluster-name", local.cluster_name]
-    command     = "aws"
-  }
+  //cluster_ca_certificate = "${base64decode(aws_eks_cluster.my_cluster.certificate_authority.0.data)}"
+  token                  = "${data.aws_eks_cluster_auth.cluster_auth.token}"
 }
 
 provider "aws" {
@@ -23,4 +21,24 @@ locals {
 resource "random_string" "suffix" {
   length  = 8
   special = false
+}
+
+resource "kubernetes_config_map" "aws_auth_configmap" {
+  metadata {
+    name      = "aws-auth"
+    namespace = "kube-system"
+  }
+  data {
+    mapRoles = <<YAML
+  - rolearn: ${module.eks.eks_managed_node_groups}
+    username: system:node:{{EC2PrivateDNSName}}
+    groups:
+      - system:bootstrappers
+      - system:nodes
+  - rolearn: ${module.eks.cluster_iam_role_arn}
+    username: kubectl-access-user
+    groups:
+      - system:masters
+  YAML
+    }
 }

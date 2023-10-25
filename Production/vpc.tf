@@ -4,7 +4,7 @@ module "vpc" {
 
   name = "vpc"
 
-  cidr = "10.20.0.0/16"
+  cidr = var.net_vpc
   azs  = slice(data.aws_availability_zones.available.names, 0, 3)
 
   private_subnets = ["10.20.1.0/24", "10.20.2.0/24", "10.20.3.0/24"]
@@ -39,7 +39,7 @@ resource "aws_vpc_peering_connection" "peer1_to_peer2" {
 # Establecer rutas de VPC1 a VPC2
 resource "aws_route" "route_to_peer2" {
   route_table_id         = data.aws_vpc.vpc1.main_route_table_id
-  destination_cidr_block = "10.20.0.0/16"
+  destination_cidr_block = var.net_vpc
   vpc_peering_connection_id = aws_vpc_peering_connection.peer1_to_peer2.id
 }
 
@@ -48,4 +48,10 @@ resource "aws_route" "route_to_peer1" {
   route_table_id         = module.vpc.vpc_main_route_table_id
   destination_cidr_block = "10.1.0.0/16"
   vpc_peering_connection_id = aws_vpc_peering_connection.peer1_to_peer2.id
+}
+
+resource "aws_route" "example_route" {
+  route_table_id         = var.rt_bastion
+  destination_cidr_block = var.net_vpc
+  gateway_id             = aws_vpc_peering_connection.peer1_to_peer2.id
 }
