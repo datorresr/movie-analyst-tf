@@ -25,7 +25,6 @@ resource "kubernetes_role_binding" "my-cluster-admin-rolebinding" {
   subject {
     kind = "ServiceAccount"
     name = "my-service-account"
-    namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
 }
 
