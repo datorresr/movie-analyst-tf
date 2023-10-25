@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1" # Cambia a tu región
-}
-
 data "aws_vpc" "vpc1" {
   id = var.VPCDevOpsRampUp
 }
