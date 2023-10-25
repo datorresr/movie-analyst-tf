@@ -46,6 +46,6 @@ resource "aws_route" "route_to_peer2" {
 # Establecer rutas de VPC2 a VPC1
 resource "aws_route" "route_to_peer1" {
   route_table_id         = module.vpc.vpc_main_route_table_id
-  destination_cidr_block = "10.0.0.0/16"
+  destination_cidr_block = "10.1.0.0/16"
   vpc_peering_connection_id = aws_vpc_peering_connection.peer1_to_peer2.id
 }
