@@ -1,7 +1,7 @@
 resource "kubernetes_service" "backend_service" {
   metadata {
     name = "backend-service"
-    namespace = kubernetes_namespace.moviesapp.metadata[0].name
+    //namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
 
   spec {
@@ -21,7 +21,7 @@ resource "kubernetes_service" "backend_service" {
 resource "kubernetes_service" "frontend_service" {
   metadata {
     name = "frontend-service"
-    namespace = kubernetes_namespace.moviesapp.metadata[0].name
+    //namespace = kubernetes_namespace.moviesapp.metadata[0].name
   }
 
   spec {
