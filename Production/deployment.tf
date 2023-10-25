@@ -2,6 +2,8 @@ resource "kubernetes_namespace" "moviesapp" {
   metadata {
     name = "moviesapp"
   }
+  wait_for_default_service_account = true
+
 }
 
 resource "kubernetes_service_account" "my-service-account" {
