@@ -18,8 +18,8 @@ output "cluster_name" {
   value       = module.eks.cluster_name
 }
 
-output "frontend_service_ip" {
-  description = "Frontend load balancer IP"
+//output "frontend_service_ip" {
+//  description = "Frontend load balancer IP"
   //value = kubernetes_service.frontend_service.status[0].load_balancer.ingress[0].ip
-  value = "${kubernetes_service.frontend_service_ip}"
-}
+//  value = "${kubernetes_service.frontend_service.asdf}"
+//}
