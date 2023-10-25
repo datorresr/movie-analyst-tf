@@ -26,7 +26,7 @@ module "vpc" {
 }
 
 resource "aws_route" "custom_route" {
-  route_table_id         = module.vpc.private_route_table_ids
+  route_table_id         = module.vpc.private_route_table_ids[0]
   destination_cidr_block = "10.1.0.0/16"  # Reemplaza con la CIDR de tu elección
   vpc_peering_connection_id = aws_vpc_peering_connection.peer1_to_peer2.id  # Reemplaza con el ID de tu VPC peering
 }
