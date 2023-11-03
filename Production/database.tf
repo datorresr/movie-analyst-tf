@@ -1,6 +1,6 @@
 resource "aws_db_subnet_group" "movies_rds_sng" {
   name       = "movies_rds_sng"
-  subnet_ids = module.vpc.private_subnets
+  subnet_ids = local.node_subnet_ids
 }
 
 resource "aws_security_group" "SG_RDS" {
@@ -12,7 +12,7 @@ resource "aws_security_group" "SG_RDS" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    security_groups  = [module.eks.node_security_group_id]
+    security_groups  = [local.node_security_group_ids, var.SG_BASTION]
   }
 
   ingress {
