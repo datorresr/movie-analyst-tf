@@ -12,7 +12,7 @@ resource "aws_security_group" "SG_RDS" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    security_groups  = [local.node_security_group_ids, var.SG_BASTION]
+    security_groups  = [local.node_security_group_ids[0], var.SG_BASTION]
   }
 
   ingress {
