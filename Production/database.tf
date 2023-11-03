@@ -6,7 +6,7 @@ resource "aws_db_subnet_group" "movies_rds_sng" {
 resource "aws_security_group" "SG_RDS" {
 
   name = "SG_RDS"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = aws_vpc.kcluster-k8s-local.id
 
   ingress {
     from_port   = 3306
