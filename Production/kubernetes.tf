@@ -810,6 +810,7 @@ resource "aws_lb" "api-kcluster-k8s-local" {
   internal                         = false
   load_balancer_type               = "network"
   name                             = "api-kcluster-k8s-local-vcgdf6"
+  security_groups    = [aws_security_group.api-elb-kcluster-k8s-local.id]
   subnet_mapping {
     subnet_id = aws_subnet.us-east-1a-kcluster-k8s-local.id
   }
